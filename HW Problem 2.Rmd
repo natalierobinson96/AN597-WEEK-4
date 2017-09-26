@@ -1,0 +1,6 @@
+---
+title: "Homework Problem 2"
+author: "Natalie Robinson"
+date: "September 26, 2017"
+output: html_document
+---
