@@ -49,10 +49,10 @@ results
 
 Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30. 
 ```{r}
-hist(results, xlim = c(0,30), probability = TRUE, main = "Simulated Results", 
-    xlab = "number of calls heard", ylab = "probability")
+hist(results, xlim = c(0,30), probability = TRUE, breaks = c(1:30), main = "Simulated Results", 
+    xlab = "number of calls heard in a session", ylab = "probability")
 ```
 
 How does your histogram compare to the shape of the probability mass function you plotted above?
-* The shape of the histogram is relatively similar to the shape of the probability mass function, as they both are somewhat bell shaped with a peak around x = 15 (the mean). Both graphs have lower probability values towards the upper and lower limits of the x-axis. 
+* The shape of the histogram is relatively similar to the shape of the probability mass function, as they both are somewhat bell shaped with a peak near x = 15 (the mean). There is some variability in this, as the histogram is based on simulated results which were randomly chosen. Both graphs have lower probability values towards the upper and lower limits of the x-axis. 
 
