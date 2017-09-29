@@ -4,42 +4,55 @@ author: "Natalie Robinson"
 date: "September 25, 2017"
 output: html_document
 ---
-
-#Notes:
-* Probabilities summarize the relative frequencies of possible outcomes.
-* Probabilities are properties of distributions
-* Random variables can be discrete or continuous 
-* PMFs associated with discrete RVs
-* PDFs (f(x)) associated with continuous RVs
-* CDF (F(x)) regardless of whether X is discrete or continuous
-* For cont: PDF is the first derivative of the CDF
-
-* Beta Distirbution with pbeta()
-
-* The Bernoulli Distribution is the probability distribution of a binary random variable
-
-* The binomial distribution is typically used to model the probability of a number of “successes” k out of a set of “trials” n, i.e., for counts of a particular outcome 
-dbinom() for PDF, pbinom for CDF
-
-* The Poisson Distribution is often used to model open ended counts of independently occuring events (mean and variance are the same); ppois() for CDF
-
-* The Uniform Distribution is the simplest probability density function describing a continuous random variable.
-
-* The Normal or Gaussian Distribution is perhaps the most familiar and most commonly applied probability density functions for modeling continuous random variables; dnorm(), pnorm(), rnorm()
-
-* A quantile-quantile or “Q-Q” plot can be used to look at whether a set of data seem to follow a normal distribution. A Q–Q plot is a graphical method for generally comparing two probability distributions
-
-* Any normal distribution with mean μμ and standard deviation σσ can be converted into what is called the standard normal distribution, where the mean is zero and the standard deviation is 1. (Subtract the mean from all observations and dividing these differences by the standard deviation)
-
-* The standard error of the mean is an estimate of how far a given sample mean is likely to be from the population mean; it is a measure of uncertainty. 
-* The standard deviation of a sample is a measure of the degree to which individuals values within a sample differ from the sample mean.
-
 # Homework Problem:
-Every Saturday, at the same time, a primatologist goes and sits in the forest in the morning and listens for titi monkey calls, counting the number of calls they hear in a 2 hour window from 5am to 7am. Based on previous knowledge, she believes that the mean number calls she will hear in that time is exactly 15. Let XX represent the appropriate Poisson random variable of the number of calls heard in each monitoring session.
+Every Saturday, at the same time, a primatologist goes and sits in the forest in the morning and listens for titi monkey calls, counting the number of calls they hear in a 2 hour window from 5am to 7am. Based on previous knowledge, she believes that the mean number calls she will hear in that time is exactly 15. Let X represent the appropriate Poisson random variable of the number of calls heard in each monitoring session.
 
-What is the probability that she will hear more than 8 calls during any given session?
+What is the probability that she will hear more than 8 calls during any given session? *****
+```{r}
+x <- 8
+l <- 15
+probset1 <- 1- ppois(x, l)
+probset1
+```
+
 What is the probability that she will hear no calls in a session?
+```{r}
+x <- 0
+l <- 15
+probset2 <- dpois(x, l)
+probset2
+```
+
 What is the probability that she will hear exactly 3 calls in a session?
-Plot the relevant Poisson mass function over the values in range 0 ≤ xx ≤ 30.
-Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions).
-Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30. How does your histogram compare to the shape of the probability mass function you plotted above?
+```{r}
+x <- 3
+l <- 15
+probset3 <- dpois(x, l)
+probset3
+```
+
+Plot the relevant Poisson mass function over the values in range 0 ≤ X ≤ 30.
+```{r}
+x <- 0:30
+l = 15
+graphprobset <- dpois(x = x, lambda = l)
+barplot(graphprobset, names.arg = x, space = 0, xlab = "x", ylab = "Pr(X=x)", main = "Probability Mass Function")
+```
+
+Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions). 
+```{r}
+n <- 104
+l <- 15
+results <- rpois(n = n, lambda = l)
+results
+```
+
+Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30. 
+```{r}
+hist(results, xlim = c(0,30), probability = TRUE, main = "Simulated Results", 
+    xlab = "number of calls heard", ylab = "probability")
+```
+
+How does your histogram compare to the shape of the probability mass function you plotted above?
+* The shape of the histogram is relatively similar to the shape of the probability mass function, as they both are somewhat bell shaped with a peak around x = 15 (the mean). Both graphs have lower probability values towards the upper and lower limits of the x-axis. 
+
