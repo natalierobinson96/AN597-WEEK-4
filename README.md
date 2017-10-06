@@ -2,4 +2,6 @@
 
 Module8.Rmd contains my answers to Homework 02 (titi monkey calls)
 
-HW Problem 2.Rmd contains my answers to the extra homework problem at the end of Module 8 (zombies)
+HW Problem 2.Rmd contains my answers to the extra homework problem at the end of Module 8 (zombies) which is also Homeowork 03
+
+Both have been knitted to html files
