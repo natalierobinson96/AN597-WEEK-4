@@ -161,7 +161,7 @@ age_weight <- p + geom_smooth(method = "lm")
 age_weight
 ```
 
-Both height and weight are positively correlated with age. As age increases, so does height/weight. The slope of the regression line for weight is not quite as steep as it is for height. Logically, this makes sense. 
+Both height and weight are positively correlated with age. As age increases, so does height/weight. The slope of the regression line for weight is not quite as steep as it is for height. Logically, this makes sense. As you grow older, your body grows in both height and weight. 
 
 
 4. Using histograms and Q-Q plots, check whether the quantitative variables seem to be drawn from a normal distribution. Which seem to be and which do not (hint: not all are drawn from the normal distribution)? For those that are not, can you determine what common distribution they are drawn from?
@@ -179,6 +179,7 @@ hist(zombies_killed, freq = FALSE, main = "zombies killed", xlab = "zombies kill
 hist(years_of_education, freq = FALSE, main = "years of education", xlab = "years of education", 
     ylab = "density", ylim = c(0, 0.3))
 ```
+
 Before even looking at the Q-Q plots you can see from the histograms of height and age look like they have normal distirbutions. 
 
 ```{r}
@@ -195,16 +196,17 @@ qqline(d$weight, col = "gray")
 qqnorm(d$age, main = "Normal QQ plot age")
 qqline(d$age, col = "gray")
 
-qqnorm(d$zombies_killed, main = "Normal QQ plot zombies killed")
+qqnorm(d$zombies_killed, main = "Normal QQ plot number of zombies killed")
 qqline(d$zombies_killed, col = "gray")
 
-qqnorm(d$years_of_education, main = "Normal QQ plot education")
+qqnorm(d$years_of_education, main = "Normal QQ plot years of education")
 qqline(d$years_of_education, col = "gray")
 ```
-Height, weight, and age seem to have normal distributions, though zombies killed and years of education do not. These may be Bernoulli or Poisson distributions. 
+
+Height, weight, and age seem to have normal distributions, though number of zombies killed and years of education do not. These may be Bernoulli or Poisson distributions. 
 
 ```{r}
-par(mfrow = c(1, 2)) # gives us two panels in one row
+par(mfrow = c(1, 2))
 
 hist(zombies_killed, freq = FALSE, main = "zombies killed", xlab = "zombies killed", 
     ylab = "density", ylim = c(0,0.3),xlim=c(0,11))
@@ -212,6 +214,7 @@ hist(zombies_killed, freq = FALSE, main = "zombies killed", xlab = "zombies kill
 probset2<-dbinom(x=0:11,size=1000,prob=1/550)
 barplot(probset2,names.arg=0:11,space=0,xlab="kills",ylab="Pr(X=outcome)",ylim=c(0,0.3),xlim=c(0,11))
 ```
+
 These fit the Bernoulli distribution
 
 5. Now use the sample() function to sample ONE subset of 30 zombies (without replacement) from this population and calculate the mean and sample standard deviation for each variable. Also estimate the standard error for each variable and construct the 95% confidence interval for each mean. Note that for the variables that are not drawn from the normal distribution, you will need to base your estimate of the CIs on some different distribution.
@@ -219,7 +222,7 @@ These fit the Bernoulli distribution
 # for all of the normal samples
 library(sciplot)
 
-#For height:
+# for height:
 s_height<-sample(d$height,size=30,replace=FALSE)
 mean(s_height)
 
@@ -230,7 +233,7 @@ lower_h<-mean(s_height)+qnorm(0.025,mean=0,sd=1)*se(s_height)
 ci_h<-c(lower_h,upper_h)
 ci_h
 
-#For weight:
+# for weight:
 s_weight<-sample(d$weight,size=30,replace=FALSE)
 mean(s_weight)
 
@@ -241,7 +244,7 @@ lower_w<-mean(s_weight)+qnorm(0.025,mean=0,sd=1)*se(s_weight)
 ci_w<-c(lower_w,upper_w)
 ci_w
 
-#For age:
+# for age:
 s_age<-sample(d$age,size=30,replace=FALSE)
 mean(s_age)
 
@@ -257,7 +260,7 @@ ci_a
 ```{r}
 # for non-normal samples use bootstrapping
 
-#For zombies_killed:
+# for zombies_killed:
 s_zombies_killed<-sample(d$zombies_killed,size=30,replace=FALSE)
 mean(s_zombies_killed)
 
@@ -270,13 +273,13 @@ for (i in 1:10000) {
 }
 quantile(set,c(0.025,0.975))
 
-#For years_of_education:
+# for years_of_education:
 s_years_of_education<-sample(d$years_of_education,size=30,replace=FALSE)
 mean(s_years_of_education)
 
 sd(s_years_of_education)
 
-set<-NULL  # sets up a dummy variable to hold our simulations
+set<-NULL
 n<-15
 for (i in 1:10000) {
     set[i]<-mean(sample(s_years_of_education,n,replace=TRUE))
@@ -345,4 +348,4 @@ mean(x_m_edu)
 sd(x_m_edu)
 ```
 
-The histograms all look relatively normal, even those from a non-normal distribution
+The histograms all look relatively normal, even those from a non-normal distribution. 
